@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:body>
+	<ui:decorate template="menu.xhtml">
+		<ui:define name="center">
+			<h:form>
+				<p:outputLabel for="name" value="Nome: " />
+				<p:inputText id="name" value="#{restaurantBean.searchName}" />
+				<p:commandButton icon="ui-icon-search" actionListener="#{restaurantBean.findByName}"
+				update="@([$id=dtRests])"/>
+			</h:form>
+			<p:dataTable value="#{restaurantBean.restaurants}" var="rest" id="dtRests" emptyMessage="Nenhum restaurante encontrado.">
+				<p:column headerText="Nome">
+					<h:outputText value="#{rest.name}" />
+				</p:column>
+
+				<p:column headerText="Endereço">
+					<h:outputText value="#{rest.addressStreet}" />
+				</p:column>
+
+				<p:column headerText="Cidade">
+					<h:outputText value="#{rest.borough}" />
+				</p:column>
+
+				<p:column headerText="Cozinha">
+					<h:outputText value="#{rest.cuisine}" />
+				</p:column>
+
+			</p:dataTable>
+		</ui:define>
+	</ui:decorate>
+</h:body>
+</html>

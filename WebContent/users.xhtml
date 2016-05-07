@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<ui:decorate template="menu.xhtml">
+		<ui:define name="center">
+			<p:growl id="growl" />
+			<p:messages id="messages" />
+			<h:form>
+				<p:commandButton value="Novo" onclick="PF('dlgNewUser').show();" />
+				<p:dataTable id="dtUsers" value="#{usersBean.users}" var="us" emptyMessage="Nenhum usuário encontrado.">
+					<p:column headerText="Nome">
+						<h:outputText value="#{us.name}" />
+					</p:column>
+					<p:column>
+						<p:commandButton icon="ui-icon-trash" process="@this"
+							actionListener="#{usersBean.deleteUser(us)}" update="dtUsers" />
+					</p:column>
+				</p:dataTable>
+			</h:form>	
+			<p:dialog widgetVar="dlgNewUser" dynamic="true">
+				<h:form>
+					<p:panel id="pnl" header="Novo Usuário" style="margin-top:10px">
+						<h:panelGrid columns="3" id="grid" cellpadding="5">
+							<p:outputLabel for="username" value="Usuário" />
+							<p:inputText id="username" value="#{usersBean.us.name}"
+								required="true">
+								<f:validateLength minimum="2" />
+							</p:inputText>
+							<p:message for="username" />
+
+							<p:outputLabel for="password" value="Senha: " />
+							<p:password id="password" value="#{usersBean.us.password}"
+								required="true" />
+							<p:message for="password" />
+						</h:panelGrid>
+
+						<p:commandButton value="Salvar" icon="ui-icon-check"
+							actionListener="#{usersBean.createUser}"
+							update="@([$id=growl]), grid, @([$id=dtUsers])"
+							oncomplete="PF('dlgNewUser').hide()" />
+					</p:panel>
+
+					<p:spotlight target="pnl" widgetVar="spot" />
+				</h:form>
+			</p:dialog>
+		</ui:define>
+	</ui:decorate>
+</h:body>
+</html>
