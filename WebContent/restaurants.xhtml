@@ -17,6 +17,9 @@
 				<p:commandButton icon="ui-icon-search" actionListener="#{restaurantBean.findByName}"
 				update="@([$id=dtRests])"/>
 			</h:form>
+			<h:form>
+				<p:commandButton icon="ui-icon-plus" action="restaurant.xhtml?i=1"/>
+			</h:form>
 			<p:dataTable value="#{restaurantBean.restaurants}" var="rest" id="dtRests" emptyMessage="Nenhum restaurante encontrado.">
 				<p:column headerText="Nome">
 					<h:outputText value="#{rest.name}" />
