@@ -14,7 +14,7 @@
 			<h:form>
 				<p:commandButton value="Novo" onclick="PF('dlgNewUser').show();" />
 				<p:dataTable id="dtUsers" value="#{usersBean.users}" var="us" emptyMessage="Nenhum usuário encontrado.">
-					<p:column headerText="Nome">
+					<p:column headerText="Usuário">
 						<h:outputText value="#{us.name}" />
 					</p:column>
 					<p:column>

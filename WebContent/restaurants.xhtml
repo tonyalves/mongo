@@ -12,9 +12,10 @@
 	<ui:decorate template="menu.xhtml">
 		<ui:define name="center">
 			<h:form>
-				<p:outputLabel for="name" value="Nome: " />
-				<p:inputText id="name" value="#{restaurantBean.searchName}" />
-				<p:commandButton icon="ui-icon-search" actionListener="#{restaurantBean.findByName}"
+				<p:outputLabel for="name" value="Consulta: " />
+				<p:inputText id="name" value="#{restaurantBean.searchText}" style="width: 80%"/>
+				
+				<p:commandButton icon="ui-icon-search" actionListener="#{restaurantBean.findByQuery}"
 				update="@([$id=dtRests])"/>
 			</h:form>
 			<h:form>

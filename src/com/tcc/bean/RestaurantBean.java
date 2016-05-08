@@ -1,7 +1,8 @@
 package com.tcc.bean;
 
+import static java.util.Arrays.asList;
+
 import java.util.List;
-import java.util.regex.Pattern;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -16,7 +17,7 @@ import com.tcc.model.Restaurant;
 @ViewScoped
 public class RestaurantBean {
 	private List<Restaurant> restaurants;
-	private String searchName;
+	private String searchText;
 	private RestaurantDAO restDao;
 	@PostConstruct
 	public void init(){
@@ -24,11 +25,12 @@ public class RestaurantBean {
 		restaurants = restDao.getAllDocuments(100);
 	}
 	
-	public void findByName(){
+	public void findByQuery(){
 		String searchRegex = "";
-		if(searchName == null || !searchName.isEmpty() )
-			searchRegex = "/*"+searchName+"*/";
-		Document document = new Document("name", Pattern.compile(searchRegex));
+		if(searchText != null || !searchText.isEmpty() )
+			searchRegex = "/*"+searchText+"*/";
+		
+		Document document = new Document("$text", new Document("$search", searchRegex));
 		restaurants = restDao.getDocumentsByCriteria(document, 100);	
 	}
 	public List<Restaurant> getRestaurants() {
@@ -36,16 +38,27 @@ public class RestaurantBean {
 	}
 	
 	public String getSearchName() {
-		if(searchName == null)
-			searchName = "";
-		return searchName;
+		if(searchText == null)
+			searchText = "";
+		return searchText;
 	}
 
 	public void setSearchName(String searchName) {
-		this.searchName = searchName;
+		this.searchText = searchName;
 	}
 
 	public void setRestaurants(List<Restaurant> restaurants) {
 		this.restaurants = restaurants;
-	}	
+	}
+
+	public String getSearchText() {
+		return searchText;
+	}
+
+	public void setSearchText(String searchText) {
+		this.searchText = searchText;
+	}
+
+
+	
 }
