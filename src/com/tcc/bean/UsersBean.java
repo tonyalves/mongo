@@ -13,6 +13,7 @@ import com.tcc.model.User;
 @ViewScoped
 public class UsersBean {
 	private List<User> users;
+	private String confirmPassword;
 	private User us;
 	private UserDAO dao = new UserDAO();
 	
@@ -46,6 +47,14 @@ public class UsersBean {
 
 	public void setUs(User us) {
 		this.us = us;
+	}
+
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
 	}
 	
 }

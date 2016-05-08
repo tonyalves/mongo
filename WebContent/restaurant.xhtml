@@ -10,6 +10,66 @@
 <h:body>
 	<ui:decorate template="menu.xhtml">
 		<ui:define name="center">
+
+			<h:form>
+				<p:messages id="messages" showDetail="true"/>
+				<p:panel id="plnRestaurant" header="Cadastro de Restaurante">
+					<h:panelGrid id="grid">
+						<p:column>
+							<p:row>
+								<p:outputLabel for="name" value="Nome: " />
+							</p:row>
+						</p:column>
+						<p:column>
+							<p:row>
+								<p:inputText id="name" value="#{restaurantBean.restaurant.name}"
+									required="true">
+									<f:validateLength minimum="2" />
+								</p:inputText>
+								<p:message for="name" />
+							</p:row>
+						</p:column>
+						<p:column>
+							<p:row>
+								<p:outputLabel for="cuisine" value="Cozinha: " />
+							</p:row>
+						</p:column>
+						<p:column>
+							<p:row>
+								<p:inputText id="cuisine"
+									value="#{restaurantBean.restaurant.cuisine}" required="true" />
+							</p:row>
+						</p:column>
+						<p:column>
+							<p:row>
+								<p:outputLabel for="address" value="Endereço: " />
+							</p:row>
+						</p:column>
+						<p:column>
+							<p:row>
+								<p:inputText id="address"
+									value="#{restaurantBean.restaurant.addressStreet}"
+									required="true" />
+								<p:message for="address" />
+							</p:row>
+						</p:column>
+						<p:column>
+							<p:row>
+								<p:outputLabel for="city" value="Cidade: " />
+							</p:row>
+						</p:column>
+						<p:column>
+							<p:row>
+								<p:inputText id="city"
+									value="#{restaurantBean.restaurant.borough}" required="true" />
+							</p:row>
+						</p:column>
+					</h:panelGrid>
+
+					<p:commandButton value="Salvar" icon="ui-icon-check"
+						actionListener="#{restaurantBean.insertRestaurant}" update="@([$id=messages]), @([$id=plnRestaurant])" />
+				</p:panel>
+			</h:form>
 		</ui:define>
 	</ui:decorate>
 </h:body>

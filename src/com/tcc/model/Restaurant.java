@@ -2,6 +2,8 @@ package com.tcc.model;
 
 import java.io.Serializable;
 
+import org.bson.Document;
+
 public class Restaurant implements Serializable{
 	
 	/**
@@ -62,6 +64,18 @@ public class Restaurant implements Serializable{
 	}
 	public void setRestaurant_id(String restaurant_id) {
 		this.restaurant_id = restaurant_id;
+	}
+	
+	public Document getDocument(){
+		Document document = new Document();
+		document.append("name", getName());
+		document.append("address", 
+								new Document("street", getAddressStreet())
+						);
+		document.append("borough", getBorough());
+		document.append("cuisine", getCuisine());
+		
+		return document;
 	}
 	
 	@Override

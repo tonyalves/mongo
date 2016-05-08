@@ -13,7 +13,8 @@
 			<p:messages id="messages" />
 			<h:form>
 				<p:commandButton value="Novo" onclick="PF('dlgNewUser').show();" />
-				<p:dataTable id="dtUsers" value="#{usersBean.users}" var="us" emptyMessage="Nenhum usuário encontrado.">
+				<p:dataTable id="dtUsers" value="#{usersBean.users}" var="us"
+					emptyMessage="Nenhum usuário encontrado.">
 					<p:column headerText="Usuário">
 						<h:outputText value="#{us.name}" />
 					</p:column>
@@ -22,31 +23,32 @@
 							actionListener="#{usersBean.deleteUser(us)}" update="dtUsers" />
 					</p:column>
 				</p:dataTable>
-			</h:form>	
-			<p:dialog widgetVar="dlgNewUser" dynamic="true">
+			</h:form>
+			<p:dialog widgetVar="dlgNewUser" dynamic="true" modal="true"
+				header="Novo Usuário">
 				<h:form>
-					<p:panel id="pnl" header="Novo Usuário" style="margin-top:10px">
-						<h:panelGrid columns="3" id="grid" cellpadding="5">
-							<p:outputLabel for="username" value="Usuário" />
-							<p:inputText id="username" value="#{usersBean.us.name}"
-								required="true">
-								<f:validateLength minimum="2" />
-							</p:inputText>
-							<p:message for="username" />
 
-							<p:outputLabel for="password" value="Senha: " />
-							<p:password id="password" value="#{usersBean.us.password}"
-								required="true" />
-							<p:message for="password" />
-						</h:panelGrid>
+					<h:panelGrid columns="1" id="grid" cellpadding="5">
+						<p:outputLabel for="username" value="Usuário" />
+						<p:inputText id="username" value="#{usersBean.us.name}"
+							required="true">
+							<f:validateLength minimum="2" />
+						</p:inputText>
+						<p:message for="username" />
 
-						<p:commandButton value="Salvar" icon="ui-icon-check"
-							actionListener="#{usersBean.createUser}"
-							update="@([$id=growl]), grid, @([$id=dtUsers])"
-							oncomplete="PF('dlgNewUser').hide()" />
-					</p:panel>
+						<p:outputLabel for="password" value="Senha: " />
+						<p:password id="password" value="#{usersBean.us.password}"
+							required="true" match="pwd2" />
+						<h:outputLabel for="pwd2" value="Confirme a senha: *" />
+						<p:password id="pwd2" value="#{usersBean.confirmPassword}"
+							label="Confirme a Senha" required="true" />
+						<p:message for="password" />
+					</h:panelGrid>
 
-					<p:spotlight target="pnl" widgetVar="spot" />
+					<p:commandButton value="Salvar" icon="ui-icon-check"
+						actionListener="#{usersBean.createUser}"
+						update="@([$id=growl]), grid, @([$id=dtUsers])"
+						oncomplete="PF('dlgNewUser').hide()" />
 				</h:form>
 			</p:dialog>
 		</ui:define>

@@ -38,29 +38,6 @@ public class RestaurantDAO {
 		return rests;
 	}
 	
-	public List<Restaurant> getAllDocumentsJongo(int limit){
-		
-		FindIterable<Document> it = db.getCollection("restaurants").find().sort(new Document("name", -1)).limit(limit);
-		List<Restaurant> rests = new ArrayList<>();
-		it.forEach(new Block<Document>() {
-			@Override
-			public void apply(final Document t) {
-				Restaurant rest = new Restaurant();
-	
-				rest.setAddressBuilding((String) ((Document) t.get("address")).getString("building"));
-				rest.setAddressStreet((String) ((Document) t.get("address")).getString("street"));
-				rest.setAddressZipCode((String) ((Document)t.get("address")).getString("zipcode"));
-				rest.setBorough((String) t.get("borough"));
-				rest.setCuisine((String) t.get("cuisine"));
-				
-				rest.setName(t.get("name").toString());
-				
-				rests.add(rest);
-			}
-		});
-		
-		return rests;
-	}
 	
 	public List<Restaurant> getDocumentsByCriteria(Document document, int limit){
 		FindIterable<Document> it = db.getCollection("restaurants").find(document).limit(limit);
